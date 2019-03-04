@@ -1,0 +1,11 @@
+{{#docs-viewer as |viewer|}}
+  {{#viewer.nav as |nav|}}
+    {{nav.section "Getting started"}}
+    {{nav.item "Overview" "docs.getting-started.overview"}}
+    {{nav.item "Installation" "docs.getting-started.installation"}}
+  {{/viewer.nav}}
+
+  {{#viewer.main}}
+    {{outlet}}
+  {{/viewer.main}}
+{{/docs-viewer}}
