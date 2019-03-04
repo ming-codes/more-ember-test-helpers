@@ -1,21 +1,29 @@
-ember-more-test-helpers
+more-ember-test-helpers
 ==============================================================================
 
-[Short description of the addon.]
+`more-ember-test-helpers` is a set of test helpers to help set best practices
+on common testing tasks.
+
+
+Compatibility
+------------------------------------------------------------------------------
+
+* Ember.js v2.18 or above
+* Ember CLI v2.13 or above
+
 
 Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install ember-more-test-helpers
+ember install more-ember-test-helpers
 ```
 
 
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
-
+See documentation.
 
 Contributing
 ------------------------------------------------------------------------------
@@ -23,7 +31,7 @@ Contributing
 ### Installation
 
 * `git clone <repository-url>`
-* `cd ember-more-test-helpers`
+* `cd more-ember-test-helpers`
 * `npm install`
 
 ### Linting
@@ -41,8 +49,8 @@ Contributing
 
 * `ember serve`
 * Visit the dummy application at [http://localhost:4200](http://localhost:4200).
+See the [Contributing](CONTRIBUTING.md) guide for details.
 
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
 
 License
 ------------------------------------------------------------------------------
