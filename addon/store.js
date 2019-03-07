@@ -1,6 +1,6 @@
 import { get } from '@ember/object';
 
-import { getContext } from '@ember/test-helpers/setup-context';
+import { lookup } from './owner';
 
 const guidMap = new WeakMap();
 
@@ -17,17 +17,7 @@ function guidFor(typeClass) {
 }
 
 export function store() {
-  let { owner } = getContext();
-
-  if (owner.lookup) {
-    return owner.lookup('service:store') || owner.lookup('store:main');
-  }
-
-  if (owner.__container__ && owner.__container__.lookup) {
-    return owner.__container__.lookup('service:store') || owner.__container__.lookup('store:main');
-  }
-
-  return null;
+  return lookup('service:store', 'store:main');
 }
 
 export function modelFor(name) {

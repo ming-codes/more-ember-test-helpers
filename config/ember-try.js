@@ -27,6 +27,8 @@ module.exports = function() {
               'ember-data': null,
               'ember-cli-addon-docs': null,
               'ember-cli-ember-data': '0.2.0',
+              'ember-getowner-polyfill': '^2.2.0',
+              'ember-factory-for-polyfill': '^1.3.1'
               //'ember-load-initializers': '0.5.0'
             }
           }
@@ -45,7 +47,8 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'ember-source': null,
-              'ember-data': '~2.4.2'
+              'ember-data': '~2.4.2',
+              'ember-factory-for-polyfill': '^1.3.1'
             }
           }
         },
@@ -63,7 +66,8 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'ember-source': null,
-              'ember-data': '~2.8.0'
+              'ember-data': '~2.8.0',
+              'ember-factory-for-polyfill': '^1.3.1'
             }
           }
         },

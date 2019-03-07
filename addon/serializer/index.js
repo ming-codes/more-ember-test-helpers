@@ -5,6 +5,8 @@ import { RESTSerializer, JSONSerializer, JSONAPISerializer } from '../-internals
 import { store, createRecordRecursively } from '../store';
 import { NormalizedResponse } from './normalized-response';
 
+const own = Object.prototype.hasOwnProperty;
+
 function typeClassFor(type) {
  return store().modelFor(type);
 }
@@ -71,7 +73,21 @@ function idFrom(type, serializer, payload) {
   throw new TypeError('Unable to infer id from serializer');
 }
 
+function lookupPrototype(object, property) {
+  if (object) {
+    if (own.call(object, property)) {
+      return object;
+    } else {
+      return lookupPrototype(Object.getPrototypeOf(object), property);
+    }
+  }
+
+  return null;
+}
+
 /**
+ * {{docs-snippet name="serializer.normalize"}}
+ *
  * @function normalize
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -90,6 +106,8 @@ export function normalize(modelName, payload) {
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeResponse"}}
+ *
  * @function normalizeResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -112,8 +130,7 @@ export function normalizeResponse(modelName, payload, id, requestType, method = 
   }
 
   if (serializer instanceof JSONSerializer) {
-    // TODO might break for multiple inheritence level
-    let proto = Object.getPrototypeOf(serializer);
+    let proto = lookupPrototype(serializer, method);
     let original = proto[method];
 
     proto[method] = function(...argv) {
@@ -130,7 +147,6 @@ export function normalizeResponse(modelName, payload, id, requestType, method = 
       },
 
       get jsonapi() {
-        // TODO this flow here is not where I want it to be. It should invoke normalizeResponse first
         return original.call(serializer, storeParam, primaryModelClassParam, rawParam, idParam, requestTypeParam);
       }
     });
@@ -144,6 +160,8 @@ export function normalizeResponse(modelName, payload, id, requestType, method = 
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeSingleResponse"}}
+ *
  * @function normalizeSingleResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -162,6 +180,8 @@ export function normalizeSingleResponse(modelName, payload, id = null, requestTy
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeArrayResponse"}}
+ *
  * @function normalizeArrayResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -180,6 +200,8 @@ export function normalizeArrayResponse(modelName, payload, id = null, requestTyp
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeCreateRecordResponse"}}
+ *
  * @function normalizeCreateRecordResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -198,6 +220,8 @@ export function normalizeCreateRecordResponse(modelName, payload, id = null, req
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeDeleteRecordResponse"}}
+ *
  * @function normalizeDeleteRecordResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -216,6 +240,8 @@ export function normalizeDeleteRecordResponse(modelName, payload, id = null, req
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeUpdateRecordResponse"}}
+ *
  * @function normalizeUpdateRecordResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -234,6 +260,8 @@ export function normalizeUpdateRecordResponse(modelName, payload, id = null, req
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeFindAllResponse"}}
+ *
  * @function normalizeFindAllResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -252,6 +280,8 @@ export function normalizeFindAllResponse(modelName, payload, id = null, requestT
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeFindBelongsToResponse"}}
+ *
  * @function normalizeFindBelongsToResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -270,6 +300,8 @@ export function normalizeFindBelongsToResponse(modelName, payload, id = null, re
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeFindHasManyResponse"}}
+ *
  * @function normalizeFindHasManyResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -288,6 +320,8 @@ export function normalizeFindHasManyResponse(modelName, payload, id = null, requ
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeFindManyResponse"}}
+ *
  * @function normalizeFindManyResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -306,6 +340,8 @@ export function normalizeFindManyResponse(modelName, payload, id = null, request
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeFindRecordResponse"}}
+ *
  * @function normalizeFindRecordResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -324,6 +360,8 @@ export function normalizeFindRecordResponse(modelName, payload, id = null, reque
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeQueryRecordResponse"}}
+ *
  * @function normalizeQueryRecordResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -342,6 +380,8 @@ export function normalizeQueryRecordResponse(modelName, payload, id = null, requ
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeQueryResponse"}}
+ *
  * @function normalizeQueryResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -360,6 +400,8 @@ export function normalizeQueryResponse(modelName, payload, id = null, requestTyp
 }
 
 /**
+ * {{docs-snippet name="serializer.normalizeSaveResponse"}}
+ *
  * @function normalizeSaveResponse
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -378,6 +420,8 @@ export function normalizeSaveResponse(modelName, payload, id = null, requestType
 }
 
 /**
+ * {{docs-snippet name="serializer.serialize"}}
+ *
  * @function serialize
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -397,6 +441,8 @@ export function serialize(modelName, properties, options = { includeId: true }) 
 }
 
 /**
+ * {{docs-snippet name="serializer.serializeIntoHash"}}
+ *
  * @function serializeIntoHash
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -430,6 +476,8 @@ export function serializeIntoHash(modelName, properties, options = { includeId: 
 }
 
 /**
+ * {{docs-snippet name="serializer.serializeAttribute"}}
+ *
  * @function serializeAttribute
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -465,6 +513,8 @@ export function serializeAttribute(modelName, key, value) {
 }
 
 /**
+ * {{docs-snippet name="serializer.serializeBelongsTo"}}
+ *
  * @function serializeBelongsTo
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -502,6 +552,8 @@ export function serializeBelongsTo(modelName, key, value) {
 }
 
 /**
+ * {{docs-snippet name="serializer.serializeHasMany"}}
+ *
  * @function serializeHasMany
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.

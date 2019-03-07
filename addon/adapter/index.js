@@ -6,6 +6,8 @@ import { instrument } from './instrument';
 import { createRecordRecursively, modelFor } from '../store';
 
 /**
+ * {{docs-snippet name="adapter.findRecord"}}
+ *
  * @function findRecord
  * @param {String} modelName
  *   The model name for the matching serializer that is under test.
@@ -18,6 +20,8 @@ export function findRecord(...argv) {
 }
 
 /**
+ * {{docs-snippet name="adapter.findAll"}}
+ *
  * @function findAll
  * @param {String} modelName
  * @return {AdapterRequest}
@@ -55,6 +59,8 @@ function findRelationship(modelName, relationship, link) {
  * under test and returns an object that represents
  * the sent request.
  *
+ * {{docs-snippet name="adapter.findBelongsTo"}}
+ *
  * @function findBelongsTo
  * @param {String} modelName
  *   The model name for the matching adapter that is
@@ -79,6 +85,8 @@ export function findBelongsTo(modelName, relationshipKey, link) {
  * under test and returns an object that represents
  * the sent request.
  *
+ * {{docs-snippet name="adapter.findHasMany"}}
+ *
  * @function findHasMany
  * @param {String} modelName
  *   The model name for the matching adapter that is
@@ -102,6 +110,8 @@ export function findHasMany(modelName, relationshipKey, link) {
  * Invokes the findMany hook on the target adapter
  * under test and returns an object that represents
  * the sent request.
+ *
+ * {{docs-snippet name="adapter.findMany"}}
  *
  * @function findMany
  * @param {String} modelName
@@ -129,6 +139,8 @@ export function findMany(modelName, ids) {
  * under test and returns an object that represents
  * the sent request.
  *
+ * {{docs-snippet name="adapter.query"}}
+ *
  * @function query
  * @param {String} modelName
  *   The model name for the matching adapter that is
@@ -146,6 +158,8 @@ export function query(...argv) {
  * under test and returns an object that represents
  * the sent request.
  *
+ * {{docs-snippet name="adapter.queryRecord"}}
+ *
  * @function queryRecord
  * @param {String} modelName
  *   The model name for the matching adapter that is
@@ -162,6 +176,8 @@ export function queryRecord(...argv) {
  * Invokes the createRecord hook on the target adapter
  * under test and returns an object that represents
  * the sent request.
+ *
+ * {{docs-snippet name="adapter.createRecord"}}
  *
  * @function createRecord
  * @param {String} modelName
@@ -182,6 +198,8 @@ export function createRecord(modelName, properties) {
  * Invokes the updateRecord hook on the target adapter
  * under test and returns an object that represents
  * the sent request.
+ *
+ * {{docs-snippet name="adapter.updateRecord"}}
  *
  * @function updateRecord
  * @param {String} modelName
@@ -211,6 +229,8 @@ export function updateRecord(modelName, properties) {
  * Invokes the deleteRecord hook on the target adapter
  * under test and returns an object that represents
  * the sent request.
+ *
+ * {{docs-snippet name="adapter.deleteRecord"}}
  *
  * @function deleteRecord
  * @param {String} modelName
